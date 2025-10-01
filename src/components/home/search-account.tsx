@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import Form from '@/components/form';
@@ -20,8 +21,9 @@ interface ISearchAccountForm {
 const SearchAccount: FC<ISearchAccountProps> = (props) => {
   const { onSearch } = props;
 
+  const router = useRouter();
+
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors }
@@ -29,7 +31,9 @@ const SearchAccount: FC<ISearchAccountProps> = (props) => {
     resolver: yupResolver(searchAccountIdSchema)
   });
 
-  const accountId = watch('accountId');
+  const goToCreateAccountPage = () => {
+    router.push('/account/create');
+  };
 
   const onFormSubmit = async (values: ISearchAccountForm) => {
     const { accountId } = values;
@@ -55,9 +59,19 @@ const SearchAccount: FC<ISearchAccountProps> = (props) => {
             />
             <FormErrorMessage message={errors.accountId?.message} />
           </FormInputSection>
-          <Button type="submit" disabled={!accountId} className="w-full">
-            Search
-          </Button>
+          <div className="flex flex-row gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={goToCreateAccountPage}
+              className="flex-1"
+            >
+              Create Account
+            </Button>
+            <Button type="submit" className="flex-1">
+              Search
+            </Button>
+          </div>
         </Form>
       </CardContent>
     </Card>

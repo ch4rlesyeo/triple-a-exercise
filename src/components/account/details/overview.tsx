@@ -4,7 +4,7 @@ import FormInputSection from '@/components/form/input-section';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { IAccount } from '@/lib/api';
-import { formatBalance } from '@/lib/utils';
+import { formatBalance } from '@/lib/money';
 
 interface IAccountDetailsOverviewProps {
   account: IAccount;

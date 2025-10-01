@@ -1,4 +1,5 @@
 import { Check, Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -11,6 +12,12 @@ const CreateAccountActions: FC = () => {
     formState: { isSubmitting },
     control
   } = useCreateAccountFormContext();
+
+  const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push('/');
+  };
 
   const success = useWatch({ name: 'success', control });
 
@@ -27,9 +34,19 @@ const CreateAccountActions: FC = () => {
   }, [isSubmitting, success]);
 
   return (
-    <Button type="submit" className="w-full">
-      {buttonLabel}
-    </Button>
+    <div className="flex flex-row gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={goToHomePage}
+        className="flex-1"
+      >
+        Back
+      </Button>
+      <Button type="submit" className="flex-1">
+        {buttonLabel}
+      </Button>
+    </div>
   );
 };
 
